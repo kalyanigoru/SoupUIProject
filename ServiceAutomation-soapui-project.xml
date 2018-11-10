@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="cdd36346-531c-487e-be50-5a57470fdfe8" activeEnvironment="Default" name="ServiceAutomation" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:testSuite id="4ef08205-6a28-48e2-9779-0724d86908be" name="Library"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="ea90b9ed-e0d4-487f-97b3-3e08f747b1e2" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ReusableScripts" searchProperties="true"><con:settings/><con:testStep type="groovy" name="ReusableLib" id="3dc27b63-c732-4b2c-aa94-50dcbbe39607"><con:settings/><con:config><script>
+class Testing
+{
+
+	def log
+	def context
+	def testRunner
+	def Testing(log,testRunner,context)
+	{
+		this.log = log
+		this.context = context
+		this.testRunner = testRunner
+	}
+	
+	def displayMessage()
+	{
+		log.info "This is Reusable method"
+	}
+	def calculatorSum(def a,def b)
+	{
+		def c= a+b
+		log.info c
+	}
+}
+context.setProperty("obj",new Testing(log,testRunner,context))
+</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="e42838f6-35bb-4e9e-985d-28850c812477" name="AutomationSuite1"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="8c8f75f9-a8e4-4057-b9bd-7d6f5f20ec41" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Case 1" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Step1" id="40524eae-50f4-400e-81a8-0b0f4a47c823"><con:settings/><con:config><script>/*def suiteRef =  testRunner.testCase.testSuite.project.getTestSuiteAt(0)
+log.info suiteRef
+def reusableStep = suiteRef.getTestCaseAt(0).getTestStepAt(0)
+log.info reusableStep
+reusableStep.run(testRunner,context)
+def myObj = context.obj
+myObj.displayMessage()
+myObj.calculatorSum(20,30)*/
+
+def suiteRef = testRunner.testCase.testSuite.project.getTestSuites()
+ log.info suiteRef
+ def reusableCase = suiteRef['Library'].getTestCases()
+ log.info reusableCase
+ def reusableStep = reusableCase['ReusableScripts'].getTestSteps()
+ log.info reusableStep
+ reusableStep['ReusableLib'].run(testRunner,context)
+
+def myObj = context.obj
+myObj.displayMessage()
+myObj.calculatorSum(20,30)</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
